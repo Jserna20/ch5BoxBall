@@ -30,8 +30,9 @@ public class BoxBounce
     private final int rightWall;           // x position of right wall
     private Canvas canvas;
     public Random randGetter;
-    private int ySpeed = 2;                // initial downward speed
-    private int xSpeed = 2;
+    private int ySpeed = 0;                // initial downward speed
+    private int xSpeed = 0;
+    private int counter;
 
     /**
      * Constructor for objects of class BoxBounce
@@ -85,6 +86,21 @@ public class BoxBounce
             
 
         // compute new position
+        if(counter == 1)
+        {
+            randGetter = new Random();
+            while(ySpeed == 0)
+            {
+                ySpeed = randGetter.nextInt(15) - 7;
+            }
+            while(xSpeed == 0) 
+            {
+                xSpeed = randGetter.nextInt(15) - 7;
+            }
+            
+        }
+        counter++;
+            
         yPosition += ySpeed;
         xPosition += xSpeed;
 

@@ -20,6 +20,10 @@ public class BoxBall
     private Random randGetter;
     private int ballAmount;
     private BoxBounce[] ballCount;
+    private int ground;
+    private int sky;
+    private int leftWall;
+    private int rightWall;
 
     /**
      * Create a BallDemo object. Creates a fresh canvas and makes it visible.
@@ -33,20 +37,50 @@ public class BoxBall
     {
         ballAmount = ballNum;
     }
-    public int getballNumber()
+    
+    public int getBallAmount()
     {
         return ballAmount;
     }
+    
+    public void makeBox(int floor, int ceiling, int lWall, int rWall)
+    {
+        ground = floor;
+        sky = ceiling;
+        leftWall = lWall;
+        rightWall = rWall;
+    }
+    
+    public int getGround()
+    {
+        return ground;
+    }
+    
+        public int getSky()
+    {
+        return sky;
+    }
+    
+        public int getleftWall()
+    {
+        return leftWall;
+    }
+    
+        public int getRightWall()
+    {
+        return rightWall;
+    }
+    
 
     /**
      * Simulate two bouncing balls
      */
     public void bounce()
     {
-        int ground = 300;   // position of the ground line
-        int sky = 100;        // posititon of the sky line
-        int wall1 = 100;      // position of left wall
-        int wall2 = 200;     // position of right wall
+        getGround();   // position of the ground line
+        getSky();        // posititon of the sky line
+        getleftWall();      // position of left wall
+        getRightWall();     // position of right wall
 
         ballsInBox.setVisible(true);
         
@@ -59,7 +93,7 @@ public class BoxBall
         ballCount = new BoxBounce[ballAmount];
         int i = 0;
         for(i = 0; i < ballCount.length; i++) {
-            ballCount[i] = new BoxBounce(xStart, yStart, 16, color, ground, sky, wall1, wall2, ballsInBox);
+            ballCount[i] = new BoxBounce(xStart, yStart, 16, color, ground, sky, leftWall, rightWall, ballsInBox);
             ballCount[i].draw();
             xStart = randGetter.nextInt(400);
             yStart = randGetter.nextInt(300);
@@ -76,14 +110,14 @@ public class BoxBall
                 ballCount[i].move();
             }
 
-            // stop once ball has travelled a certain distance on x axis
+            // To allow loop to loop
             if(ballCount[0].getXPosition() == 40 && ballCount[0].getXPosition() == 30) {
                 finished = true;
             }
-        ballsInBox.drawLine(wall1, ground, wall2, ground);
-        ballsInBox.drawLine(wall1, ground, wall1, sky);
-        ballsInBox.drawLine(wall1, sky, wall2, sky);
-        ballsInBox.drawLine(wall2, ground, wall2, sky);
+        ballsInBox.drawLine(leftWall, ground, rightWall, ground);
+        ballsInBox.drawLine(leftWall, ground, leftWall, sky);
+        ballsInBox.drawLine(leftWall, sky, rightWall, sky);
+        ballsInBox.drawLine(rightWall, ground, rightWall, sky);
         }
         
         
