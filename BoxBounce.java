@@ -130,7 +130,12 @@ public class BoxBounce
     }    
 
     /**
-     * return the horizontal position of this ball
+     * Method name: getXPosition
+     * return type: int
+     * @return xPostition
+     * Used for the value of xPosition
+     * which is the horizontal position
+     * of this ball
      */
     public int getXPosition()
     {
@@ -138,7 +143,12 @@ public class BoxBounce
     }
 
     /**
-     * return the vertical position of this ball
+     * Method name: getYPosition
+     * return type: int
+     * @return yPosition
+     * Used for the value of yPosition
+     * which is the vertical position
+     * of this ball
      */
     public int getYPosition()
     {

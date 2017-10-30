@@ -33,16 +33,39 @@ public class BoxBall
         ballsInBox = new Canvas("BoxBall", 600, 500);
     }
     
-    public void setballNumber(int ballNum)
+    /**
+     * Method name: setBallNumber
+     * return type: void
+     * @param ballNum The amount of balls bouncing
+     * Sets the amount of balls bouncing
+     */
+    public void setBallNumber(int ballNum)
     {
+        if(ballNum > 0)
         ballAmount = ballNum;
     }
     
+    /**
+     * Method name: getBallAmount
+     * return type: int
+     * @return ballAmount
+     * Used for the value of ballAmount later on
+     */
     public int getBallAmount()
     {
         return ballAmount;
     }
     
+    /**
+     * Method name: makeBox
+     * return type: void
+     * @param floor The bottom the box
+     * @param ceiling The top of the box
+     * @param lWall The left wall of the box
+     * @param rWall The right wall of the box
+     * This makes a box by using the value as points
+     * for the drawLine method later on
+     */
     public void makeBox(int floor, int ceiling, int lWall, int rWall)
     {
         ground = floor;
@@ -51,21 +74,45 @@ public class BoxBall
         rightWall = rWall;
     }
     
+    /**
+     * Method name: getGround
+     * return type: int
+     * @return ground
+     * Used for the value of ground later on
+     */
     public int getGround()
     {
         return ground;
     }
     
+    /**
+     * Method name: getSky
+     * return type: int
+     * @return sky
+     * Used for the value of sky later on
+     */
         public int getSky()
     {
         return sky;
     }
     
-        public int getleftWall()
+    /**
+     * Method name: getLeftWall
+     * return type: int
+     * @return lWall
+     * Used for the value of lWall later on
+     */
+        public int getLeftWall()
     {
         return leftWall;
     }
     
+    /**
+     * Method name: getRightWall
+     * return type: int
+     * @return rWall
+     * Used for the value of rWall later on
+     */
         public int getRightWall()
     {
         return rightWall;
@@ -77,49 +124,52 @@ public class BoxBall
      */
     public void bounce()
     {
-        getGround();   // position of the ground line
-        getSky();        // posititon of the sky line
-        getleftWall();      // position of left wall
-        getRightWall();     // position of right wall
+        if(getBallAmount() > 0)
+        {
+            getGround();   // position of the ground line
+            getSky();        // posititon of the sky line
+            getLeftWall();      // position of left wall
+            getRightWall();     // position of right wall
 
-        ballsInBox.setVisible(true);
+            ballsInBox.setVisible(true);
         
-        randGetter = new Random();
-        int xStart = randGetter.nextInt(400);
-        int yStart = randGetter.nextInt(300);
-        int diameter = randGetter.nextInt(60) + 5;
-        Color color = new Color(randGetter.nextInt(256),randGetter.nextInt(256),randGetter.nextInt(256));
+            randGetter = new Random();
+            int xStart = randGetter.nextInt(400);
+            int yStart = randGetter.nextInt(300);
+            int diameter = randGetter.nextInt(60) + 5;
+            Color color = new Color(randGetter.nextInt(256),randGetter.nextInt(256),randGetter.nextInt(256));
         
-        ballCount = new BoxBounce[ballAmount];
-        int i = 0;
-        for(i = 0; i < ballCount.length; i++) {
-            ballCount[i] = new BoxBounce(xStart, yStart, 16, color, ground, sky, leftWall, rightWall, ballsInBox);
-            ballCount[i].draw();
-            xStart = randGetter.nextInt(400);
-            yStart = randGetter.nextInt(300);
-            diameter = randGetter.nextInt(60) + 5;
-            color = new Color(randGetter.nextInt(256),randGetter.nextInt(256),randGetter.nextInt(256));
-        }
+            ballCount = new BoxBounce[getBallAmount()];
+            int i = 0;
+            for(i = 0; i < ballCount.length; i++) {
+                ballCount[i] = new BoxBounce(xStart, yStart, 16, color, ground, sky, leftWall, rightWall, ballsInBox);
+                ballCount[i].draw();
+                xStart = randGetter.nextInt(400);
+                yStart = randGetter.nextInt(300);
+                diameter = randGetter.nextInt(60) + 5;
+                color = new Color(randGetter.nextInt(256),randGetter.nextInt(256),randGetter.nextInt(256));
+            }
     
 
-        // make them bounce
-        finished =  false;
-        while(!finished) {
-            ballsInBox.wait(50);           // small delay
-            for(i = 0; i < ballCount.length; i++) {
-                ballCount[i].move();
-            }
+            // make them bounce
+            finished =  false;
+            while(!finished) 
+            {
+                ballsInBox.wait(50);           // small delay
+                for(i = 0; i < ballCount.length; i++) {
+                    ballCount[i].move();
+                }
 
             // To allow loop to loop
             if(ballCount[0].getXPosition() == 40 && ballCount[0].getXPosition() == 30) {
                 finished = true;
             }
-        ballsInBox.drawLine(leftWall, ground, rightWall, ground);
-        ballsInBox.drawLine(leftWall, ground, leftWall, sky);
-        ballsInBox.drawLine(leftWall, sky, rightWall, sky);
-        ballsInBox.drawLine(rightWall, ground, rightWall, sky);
+            ballsInBox.drawLine(leftWall, ground, rightWall, ground);
+            ballsInBox.drawLine(leftWall, ground, leftWall, sky);
+            ballsInBox.drawLine(leftWall, sky, rightWall, sky);
+            ballsInBox.drawLine(rightWall, ground, rightWall, sky);
         }
-        
-        
+       
     }
+}
 }
